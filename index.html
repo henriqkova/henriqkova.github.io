@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Henrique Kovalezyk, analista de dados. Pipelines, BI, APIs de ERP e automação com IA.">
+<meta property="og:title" content="Henrique Kovalezyk · Analista de Dados">
+<meta property="og:description" content="Meu portfólio: pipelines de dados, BI, integrações com mais de 40 APIs e automação com Claude.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://henriqkova.github.io/">
+<title>Henrique Kovalezyk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Michroma&display=swap" rel="stylesheet">
+<style>
+/* Layout: um quadro escuro sobre fundo cinza-azulado; seções separadas por espaço (sem linhas), texto até 640px, um só acento azul */
+:root{
+  color-scheme:dark;
+  --page-a:#cdd3df;--page-b:#9aa6bd;
+  --frame:#08080a;--raise:#101114;
+  --line:rgba(255,255,255,.1);--line-hi:rgba(255,255,255,.28);--gridline:rgba(255,255,255,.07);
+  --text:#f2f3f5;--soft:#cdd0d6;--muted:#a3a8b1;--faint:#878c96;
+  --metal-a:#ffffff;--metal-b:#8a9099;
+  --accent:#1f6fff;--accent-hi:#74a8ff;--accent-soft:rgba(31,111,255,.16);
+  --bar-mute:#5a606b;--track:rgba(255,255,255,.05);
+  --btn:#f2f3f5;--btn-hover:#ffffff;--btn-fg:#08080a;
+  --glow:rgba(190,205,235,.09);--glow-0:rgba(190,205,235,0);
+  --shadow:rgba(20,28,48,.4);--overlay:#08080a;
+  --display:"Michroma","Eurostile","Bank Gothic","Arial Black",system-ui,sans-serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  --pad:clamp(20px,5.5vw,80px);
+  --gap-sec:clamp(64px,9vw,120px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,var(--page-a) 0%,var(--page-b) 100%);color:var(--text);font:16px/1.7 var(--sans);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+p{margin:0}
+h1,h2,h3,h4{margin:0;font-weight:400}
+:focus-visible{outline:2px solid var(--accent-hi);outline-offset:3px;border-radius:2px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+.page{padding-block:clamp(8px,2.4vw,32px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.frame{max-width:1360px;margin:0 auto;background:var(--frame);border-radius:16px;overflow:hidden;box-shadow:0 30px 80px -24px var(--shadow)}
+
+/* barra superior */
+.bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:22px var(--pad)}
+.bar-btn{display:inline-flex;align-items:center;gap:10px;font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--soft);min-height:36px;transition:color .2s}
+.bar-btn:hover{color:var(--text)}
+.bar-btn.r{justify-self:end}
+.ham{display:inline-grid;gap:5px;width:18px}
+.ham i{display:block;height:1.5px;background:currentColor}
+.mark{font:400 12px/1 var(--display);letter-spacing:.2em;white-space:nowrap}
+.oz{position:relative;display:inline-block}
+.oz::after{content:"";position:absolute;left:50%;top:50%;width:.085em;min-width:1px;height:1.08em;background:linear-gradient(180deg,var(--metal-a),var(--metal-b));transform:translate(-50%,-50%) rotate(34deg)}
+.mark .oz::after{background:var(--text)}
+@media(max-width:420px){.mark{font-size:10px;letter-spacing:.14em}.bar-btn{letter-spacing:.12em;gap:7px}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:clamp(48px,8vw,104px) var(--pad) clamp(120px,17vw,230px)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero::before{content:"";position:absolute;left:50%;top:38%;width:min(860px,120%);aspect-ratio:1.6;transform:translate(-50%,-50%);background:radial-gradient(closest-side,var(--glow),var(--glow-0));pointer-events:none}
+.hero>*:not(canvas){position:relative}
+.kicker{font:500 11px/1.5 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.word{margin:clamp(20px,3vw,36px) 0 clamp(32px,5vw,64px);line-height:1;overflow:hidden}
+.word .w{display:inline-block;white-space:nowrap;font:400 clamp(26px,7.6vw,120px)/1 var(--display);padding:.06em 0 .08em;background:linear-gradient(180deg,var(--metal-a) 20%,var(--metal-b) 98%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.name{font:400 clamp(26px,4.2vw,52px)/1.15 var(--display);letter-spacing:-.01em;margin:clamp(18px,2.4vw,28px) 0 clamp(28px,4vw,48px);text-wrap:balance}
+.h-row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+.h-row>p{max-width:460px;font-size:clamp(16px,1.5vw,18px);line-height:1.6;color:var(--soft);min-width:0;flex:1 1 300px}
+.h-stats{display:flex;gap:40px}
+.h-stats span{display:block;font-size:13px;color:var(--muted)}
+.h-stats b{display:block;font-size:20px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 34px;background:var(--btn);color:var(--btn-fg);font:600 12px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;border-radius:2px;transition:background-color .2s}
+.btn:hover{background:var(--btn-hover)}
+@media(max-width:700px){.h-row{flex-direction:column;align-items:stretch;gap:28px}.h-row>p{flex:none}.btn{width:100%}}
+
+/* seções */
+.sec{padding:0 var(--pad) var(--gap-sec)}
+.sec:first-of-type{padding-top:clamp(24px,4vw,56px)}
+.label{font:500 11px/1.5 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-hi)}
+.sec h2{font:400 clamp(20px,2.5vw,30px)/1.3 var(--display);margin-top:14px;text-wrap:balance;overflow-wrap:anywhere}
+.lead{max-width:640px;color:var(--muted);margin-top:18px;text-wrap:pretty}
+.lead b{color:var(--text);font-weight:600}
+.body{margin-top:clamp(36px,5vw,64px)}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(32px,4.5vw,64px)}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(40px,6vw,96px)}
+@media(max-width:900px){.g3,.g2{grid-template-columns:1fr}}
+.item{min-width:0}
+.item .k{font:500 11px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.item h3{font-size:17px;font-weight:600;line-height:1.4;margin:8px 0 8px}
+.item p{font-size:15px;line-height:1.7;color:var(--muted);max-width:640px}
+
+/* números */
+.nums{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:28px clamp(20px,4vw,56px)}
+.nums div{min-width:0}
+.nums b{display:block;font:400 clamp(20px,2.4vw,28px)/1.1 var(--display);white-space:nowrap}
+.nums span{display:block;font-size:14px;line-height:1.5;color:var(--muted);margin-top:10px;max-width:230px}
+@media(max-width:1000px){.nums{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.nums{grid-template-columns:repeat(2,minmax(0,1fr))}.nums div:last-child{grid-column:1/-1}}
+
+/* gráficos */
+.chart{min-width:0}
+.chart h3{font-size:17px;font-weight:600;line-height:1.4}
+.chart .cap{font-size:14.5px;line-height:1.6;color:var(--muted);margin-top:6px;max-width:560px}
+.chart .big{font:400 clamp(26px,3.4vw,40px)/1 var(--display);margin:26px 0 22px}
+.chart .big small{font:400 14px var(--sans);color:var(--muted);margin-left:10px}
+.chart .src{font:400 11px/1.6 var(--mono);color:var(--faint);margin-top:18px}
+.chart .foot-n{font-size:13px;line-height:1.6;color:var(--muted);margin-top:16px;max-width:560px}
+.hb{display:grid;gap:12px}
+.hb-row{display:grid;grid-template-columns:150px minmax(0,1fr);align-items:center;gap:14px;width:100%}
+.hb-row .n{font-size:14px;line-height:1.3;color:var(--soft);min-width:0}
+.hb-row .t{display:flex;align-items:center;gap:10px;min-width:0;background:linear-gradient(90deg,var(--gridline) 1px,transparent 1px) 0 0/calc((100% - 44px)/4) 100%}
+.hb-row .t i{display:block;height:18px;width:calc(var(--v)/var(--max)*(100% - 44px));min-width:2px;background:var(--accent);border-radius:1px;transition:opacity .2s,background-color .2s}
+.hb-row .t b{font-size:14px;font-weight:600;white-space:nowrap}
+.hb-row.mute .t i{background:var(--bar-mute)}
+@media(max-width:520px){.hb-row{grid-template-columns:104px minmax(0,1fr);gap:10px}.hb-row .n{font-size:13px}}
+button.hb-row{padding:5px 0;border-radius:2px}
+button.hb-row:hover .n{color:var(--text)}
+.hb.has-sel button.hb-row[aria-pressed="false"] .t i{background:var(--bar-mute)}
+button.hb-row[aria-pressed="true"] .n{color:var(--text);font-weight:600}
+
+.vc{margin-top:26px}
+.vc-plot{position:relative;height:220px;margin-left:30px;border-bottom:1px solid var(--line-hi);background:linear-gradient(var(--gridline) 1px,transparent 1px) 0 0/100% 25%}
+.vc-y{position:absolute;right:100%;margin-right:8px;font:400 11px/1 var(--mono);color:var(--faint);transform:translateY(-50%)}
+.vc-cols,.vc-x{display:flex;justify-content:space-around}
+.vc-cols{height:100%;align-items:flex-end}
+.vc-col{position:relative;width:min(8%,46px);height:calc(var(--v)/80*100%);background:var(--accent);border-radius:1px 1px 0 0}
+.vc-col b{position:absolute;left:-20px;right:-20px;bottom:100%;padding-bottom:7px;text-align:center;font-size:clamp(11px,1.3vw,15px);font-weight:600;line-height:1}
+.vc-col.part{background:var(--accent-soft);outline:1px dashed var(--accent-hi);outline-offset:-1px}
+.vc-x{margin-left:30px;padding-top:10px}
+.vc-x div{font-size:clamp(11px,1.3vw,14px)!important;width:min(8%,46px);text-align:center;font-size:14px;color:var(--soft);line-height:1.35}
+.vc-x small{display:block;font-size:12px;color:var(--muted)}
+
+/* competências */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font:500 13px/1 var(--sans);padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:var(--soft);transition:border-color .2s,color .2s,background-color .2s}
+.chip:hover{border-color:var(--line-hi);color:var(--text)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--text)}
+.hint{font-size:14px;color:var(--muted);margin-top:22px;min-height:24px}
+.hint a,.link{color:var(--accent-hi);border-bottom:1px solid currentColor}
+.hint a{margin-left:8px;white-space:nowrap}
+.areas{max-width:640px;margin-top:clamp(48px,6vw,80px)}
+.areas .hb{margin-top:22px;gap:4px}
+
+/* ia */
+.row{padding:0 0 28px}
+.row strong{display:block;font-size:17px;font-weight:600;line-height:1.4}
+.row p{font-size:15px;line-height:1.7;color:var(--muted);margin-top:6px;max-width:640px}
+.tbl-h{font-size:17px;font-weight:600;line-height:1.4;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+td{padding:12px 0;border-top:1px solid var(--line);vertical-align:baseline;font-size:14.5px;line-height:1.55;color:var(--muted)}
+td:first-child{width:172px;padding-right:14px}
+td code{font:500 13px var(--mono);color:var(--accent-hi);overflow-wrap:anywhere}
+@media(max-width:420px){td:first-child{width:128px}td code{font-size:12px}}
+.skill-h{font:400 clamp(18px,2vw,24px)/1.3 var(--display);margin-top:12px}
+.skill-lead{font-size:15px;line-height:1.7;color:var(--soft);margin-top:14px;max-width:640px}
+.skill-pts{list-style:none;padding:0;margin:26px 0 40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px}
+.skill-pts li{font-size:14px;line-height:1.6;color:var(--muted);min-width:0}
+.skill-pts b{display:block;color:var(--text);font-weight:600;font-size:15px;margin-bottom:3px}
+@media(max-width:520px){.skill-pts{grid-template-columns:1fr}}
+.note{font-size:14.5px;line-height:1.7;color:var(--muted);margin-top:22px;max-width:640px}
+
+/* arquitetura */
+.arch{overflow-x:auto;border:1px solid var(--line);border-radius:8px;padding:24px}
+.arch svg{display:block;min-width:880px;width:100%;height:auto}
+
+/* projetos */
+.fbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--soft);margin-bottom:8px}
+.fbar[hidden]{display:none}
+.fbar button{font-size:13px;color:var(--accent-hi);border-bottom:1px solid currentColor;line-height:1.4}
+.case{display:grid;grid-template-columns:210px minmax(0,640px);gap:8px 40px;padding:32px 0;border-top:1px solid var(--line);transition:opacity .25s}
+.case.dim{opacity:.28}
+.case .seg{font:400 12px/1.7 var(--mono);color:var(--faint);padding-top:3px}
+.case h3{font-size:18px;font-weight:600;line-height:1.4}
+.case .sum{font-size:15.5px;line-height:1.65;color:var(--soft);margin-top:6px}
+.case .stack{font:400 12.5px/1.6 var(--mono);color:var(--muted);margin-top:10px}
+.case details{margin-top:12px}
+.case summary{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:var(--accent-hi);cursor:pointer;list-style:none;padding:4px 0}
+.case summary::-webkit-details-marker{display:none}
+.case summary::before{content:"+";font-family:var(--mono);width:10px}
+.case details[open] summary::before{content:"\2212"}
+.case details p{font-size:15px;line-height:1.75;color:var(--muted);margin-top:10px}
+.case details .res{color:var(--soft)}
+@media(max-width:820px){.case{grid-template-columns:1fr;padding:28px 0}}
+
+/* trajetória */
+.bio p{font-size:16px;line-height:1.8;color:var(--muted);margin-top:18px;max-width:640px}
+.bio p b{color:var(--text);font-weight:600}
+.quote{margin:36px 0 0;padding-left:20px;border-left:2px solid var(--accent);font-size:17px;line-height:1.65;color:var(--text);max-width:620px}
+.quote cite{display:block;margin-top:12px;font-style:normal;font-size:13.5px;color:var(--muted)}
+.job{padding:0 0 30px}
+.job span{font:500 12px/1.5 var(--mono);color:var(--accent-hi)}
+.job strong{display:block;font-size:17px;font-weight:600;line-height:1.4;margin-top:4px}
+.job p{font-size:15px;line-height:1.65;color:var(--muted);margin-top:4px}
+
+/* contato */
+.contact h2{font-size:clamp(26px,4.4vw,56px);line-height:1.15}
+.reach{display:grid;gap:4px;margin-top:36px;max-width:640px}
+.reach a{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-top:1px solid var(--line);min-width:0}
+.reach span{font-size:14px;color:var(--muted);flex:none}
+.reach b{font-size:16px;font-weight:500;text-align:right;overflow-wrap:anywhere;min-width:0;transition:color .2s}
+.reach a:hover b{color:var(--accent-hi)}
+@media(max-width:420px){.reach a{flex-direction:column;gap:2px}.reach b{text-align:left}}
+.contact .btn{margin-top:36px}
+.foot{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;padding:28px var(--pad);font-size:13px;color:var(--faint)}
+
+/* menu */
+.menu{position:fixed;inset:0;z-index:50;background:var(--overlay);display:flex;flex-direction:column;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-y:auto}
+.menu[hidden]{display:none}
+.menu-in{width:100%;max-width:1360px;margin:0 auto}
+.menu nav{display:grid;padding:clamp(16px,4vh,48px) var(--pad) 48px}
+.menu nav a{padding:14px 0;font:400 clamp(17px,2.6vw,26px)/1.3 var(--display);color:var(--soft);transition:color .2s}
+.menu nav a:hover,.menu nav a:focus-visible{color:var(--text)}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+<div class="frame" id="top">
+
+  <header class="bar">
+    <button class="bar-btn" id="menuBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu"><span class="ham" aria-hidden="true"><i></i><i></i></span>Menu</button>
+    <a class="mark" href="#top" aria-label="Henrique Kovalezyk, início"><span aria-hidden="true">K<span class="oz">O</span>VALEZYK</span></a>
+    <a class="bar-btn r" href="#contato">Contato <span aria-hidden="true">→</span></a>
+  </header>
+
+  <main>
+    <section class="hero" id="hero" aria-label="Apresentação">
+      <canvas id="field" aria-hidden="true"></canvas>
+      <div class="kicker">Data Analyst / Engenharia de dados / IA</div>
+      <h1 class="name">Henrique Kovalezyk</h1>
+      <div class="h-row">
+        <p>Sou analista de dados e escrevo meus próprios pipelines: do modelo em Power BI ao container em produção, com IA no meio do caminho.</p>
+        <div class="h-stats">
+          <div><span>Desde</span><b>jan 2025</b></div>
+          <div><span>Entregues</span><b>200+ projetos</b></div>
+        </div>
+        <a class="btn" href="#numeros">Explorar</a>
+      </div>
+    </section>
+
+    <section class="sec" id="numeros">
+      <div class="label">Em números</div>
+      <h2>Quanto eu já entreguei</h2>
+      <div class="body nums">
+        <div><b>1a 11m</b><span>de experiência como Analista de Dados na BGP</span></div>
+        <div><b>200+</b><span>projetos de dados que entreguei, em Power BI e na web</span></div>
+        <div><b>300+</b><span>aplicações que publiquei na nuvem em containers desde mar/2026</span></div>
+        <div><b>40+</b><span>APIs diferentes que já conectei: ERPs, bancos, marketplaces, Microsoft Graph</span></div>
+        <div><b>10</b><span>skills de Claude Code que criei para automatizar processos inteiros</span></div>
+      </div>
+      <div class="body g2">
+        <div class="chart">
+          <h3>Projetos por sistema de origem</h3>
+          <p class="cap">De qual sistema puxei os dados em cada projeto, somando BIs em Power BI e na web.</p>
+          <div class="big">200+<small>projetos</small></div>
+          <div class="hb" style="--max:100">
+            <div class="hb-row" style="--v:100"><span class="n">Omie</span><span class="t"><i></i><b>100+</b></span></div>
+            <div class="hb-row" style="--v:100"><span class="n">Conta Azul</span><span class="t"><i></i><b>100+</b></span></div>
+            <div class="hb-row" style="--v:12.5"><span class="n">Nibo</span><span class="t"><i></i><b>10–15</b></span></div>
+            <div class="hb-row" style="--v:12.5"><span class="n">Marketplaces / Tiny</span><span class="t"><i></i><b>10–15</b></span></div>
+            <div class="hb-row" style="--v:12.5"><span class="n">Bling</span><span class="t"><i></i><b>10–15</b></span></div>
+            <div class="hb-row" style="--v:12.5"><span class="n">fin40</span><span class="t"><i></i><b>10–15</b></span></div>
+          </div>
+          <p class="foot-n">Além desses, já fiz projetos com GestaoClick, IXC, Sponte, ESO, Golden, ESL, FisioterapiaSoft, Biodata, FullControl e Trinks.</p>
+          <p class="src">Valores aproximados · Fonte: minha contagem de projetos, nov/2026</p>
+        </div>
+        <div class="chart">
+          <h3>Aplicações publicadas na nuvem, por mês (2026)</h3>
+          <p class="cap">BIs web, workers de extração e serviços que coloquei no ar em containers, desde março.</p>
+          <div class="big">328<small>aplicações no ar</small></div>
+          <div class="vc">
+            <div class="vc-plot">
+              <span class="vc-y" style="top:0">80</span><span class="vc-y" style="top:25%">60</span><span class="vc-y" style="top:50%">40</span><span class="vc-y" style="top:75%">20</span><span class="vc-y" style="top:100%">0</span>
+              <div class="vc-cols">
+                <div class="vc-col" style="--v:15"><b>15</b></div>
+                <div class="vc-col" style="--v:3"><b>3</b></div>
+                <div class="vc-col" style="--v:62"><b>62</b></div>
+                <div class="vc-col" style="--v:36"><b>36</b></div>
+                <div class="vc-col" style="--v:41"><b>41</b></div>
+                <div class="vc-col" style="--v:47"><b>47</b></div>
+                <div class="vc-col" style="--v:50"><b>50</b></div>
+                <div class="vc-col" style="--v:56"><b>56</b></div>
+                <div class="vc-col part" style="--v:18"><b>18</b></div>
+              </div>
+            </div>
+            <div class="vc-x"><div>mar</div><div>abr</div><div>mai</div><div>jun</div><div>jul</div><div>ago</div><div>set</div><div>out</div><div>nov<small>parcial</small></div></div>
+          </div>
+          <p class="src">Fonte: API do servidor de deploy (Coolify), data de criação de cada aplicação, 12/nov/2026</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="metodo">
+      <div class="label">Método</div>
+      <h2>Como eu trabalho</h2>
+      <p class="lead">Modelo em <b>Power BI e DAX</b>, integro APIs em <b>Node.js</b>, coloco em produção em <b>containers com agendamento</b> e construo soluções com <b>IA, com foco no ecossistema Claude</b>. Estudo Ciência da Computação e tenho o hábito de só dar um número por certo depois de conferir com a origem.</p>
+      <div class="body g3">
+        <div class="item"><div class="k">01</div><h3>Entendo a fonte antes do gráfico</h3><p>Leio a documentação da API, testo os limites, descubro como o sistema trata paginação, exclusões e baixas parciais.</p></div>
+        <div class="item"><div class="k">02</div><h3>Valido contra a origem</h3><p>Escrevo scripts de paridade que comparam o resultado com o relatório do sistema, dia a dia ou lançamento a lançamento.</p></div>
+        <div class="item"><div class="k">03</div><h3>Automatizo e documento</h3><p>Agendamento, travas contra execução presa, logs e notas de cada armadilha encontrada, para o próximo não cair nela.</p></div>
+      </div>
+    </section>
+
+    <section class="sec" id="competencias">
+      <div class="label">Competências</div>
+      <h2>O que eu sei fazer</h2>
+      <p class="lead">Agrupado por área. Clique numa competência para destacar, mais abaixo, os problemas em que ela foi aplicada.</p>
+      <div class="body g3" id="skills">
+        <div class="item sk" data-area="Dados &amp; BI"><div class="k">Dados &amp; BI</div><h3>Modelagem e análise</h3><p>Construo modelos dimensionais, escrevo medidas DAX, transformo dados no Power Query e monto DRE e fluxo de caixa com regras de reconhecimento.</p>
+          <div class="chips"><button type="button" class="chip" data-s="powerbi">Power BI</button><button type="button" class="chip" data-s="dax">DAX</button><button type="button" class="chip" data-s="pq">Power Query</button><button type="button" class="chip" data-s="fin">Finanças / DRE</button><button type="button" class="chip" data-s="r">R</button><button type="button" class="chip" data-s="excel">Excel</button></div></div>
+        <div class="item sk" data-area="Código"><div class="k">Código</div><h3>Desenvolvimento</h3><p>Escrevo scripts e serviços em Node.js, faço front-end em HTML, CSS e JavaScript puro e levo o cálculo para o servidor para as telas ficarem leves no celular.</p>
+          <div class="chips"><button type="button" class="chip" data-s="node">Node.js</button><button type="button" class="chip" data-s="js">JavaScript</button><button type="button" class="chip" data-s="web">HTML/CSS</button><button type="button" class="chip" data-s="java">Java</button><button type="button" class="chip" data-s="sql">SQL</button></div></div>
+        <div class="item sk" data-area="Integração"><div class="k">Integração</div><h3>APIs e automação</h3><p>Integro APIs REST com paginação e limite de requisições e OAuth com refresh token rotativo, e escrevo robôs de navegador onde não existe API.</p>
+          <div class="chips"><button type="button" class="chip" data-s="api">APIs REST</button><button type="button" class="chip" data-s="oauth">OAuth</button><button type="button" class="chip" data-s="playwright">Playwright</button><button type="button" class="chip" data-s="graph">Microsoft Graph</button></div></div>
+        <div class="item sk" data-area="Infraestrutura"><div class="k">Infraestrutura</div><h3>Nuvem e deploy</h3><p>Coloco tudo em containers com cron interno e deploy por push, e uso banco gerenciado, volumes para cache e estado e proxy para APIs com IP liberado.</p>
+          <div class="chips"><button type="button" class="chip" data-s="docker">Docker</button><button type="button" class="chip" data-s="coolify">Coolify</button><button type="button" class="chip" data-s="supabase">Supabase / Postgres</button><button type="button" class="chip" data-s="gha">GitHub Actions</button><button type="button" class="chip" data-s="linux">Linux</button><button type="button" class="chip" data-s="aws">AWS</button></div></div>
+        <div class="item sk" data-area="Validação"><div class="k">Validação</div><h3>Validação de dados</h3><p>Escrevo testes de paridade contra o sistema de origem, faço conciliação bancária e crio travas que impedem publicar dado divergente.</p>
+          <div class="chips"><button type="button" class="chip" data-s="paridade">Testes de paridade</button><button type="button" class="chip" data-s="concil">Conciliação</button><button type="button" class="chip" data-s="cache">Carga incremental</button></div></div>
+        <div class="item sk" data-area="IA"><div class="k">IA</div><h3>IA e Claude</h3><p>Uso o Claude Code como ambiente de engenharia, crio skills e agentes próprios e trabalho com Claude API, tool use, MCP e saídas estruturadas.</p>
+          <div class="chips"><button type="button" class="chip" data-s="claudecode">Claude Code</button><button type="button" class="chip" data-s="llm">Claude API</button><button type="button" class="chip" data-s="agents">Agentes / skills</button><button type="button" class="chip" data-s="mcp">MCP</button><button type="button" class="chip" data-s="prompt">Engenharia de prompt</button><button type="button" class="chip" data-s="whisper">Whisper (ONNX)</button></div></div>
+      </div>
+
+      <div class="chart areas">
+        <h3>Onde cada competência aparece</h3>
+        <p class="cap">Contagem sobre os 10 problemas listados abaixo. Clique numa barra para filtrar pela área.</p>
+        <div class="hb" id="areaChart" style="--max:10"></div>
+        <p class="src">Fonte: minhas notas de projeto, nov/2026</p>
+      </div>
+      <p class="hint" aria-live="polite"><span id="hint">Nenhuma competência selecionada.</span><a href="#projetos" id="goproj" hidden>Ver problemas ↓</a></p>
+    </section>
+
+    <section class="sec" id="ia">
+      <div class="label">IA e Claude</div>
+      <h2>Como eu uso IA</h2>
+      <p class="lead">Construo com IA, não só uso. O Claude é minha principal ferramenta de trabalho e também peça dos sistemas que eu entrego. Conheço o ecossistema por dentro: Claude Code, API, agentes, skills e MCP.</p>
+      <div class="body g2">
+        <div>
+          <div class="row"><strong>Claude Code como ambiente de engenharia</strong><p>Escrevo, depuro, faço deploy e opero centenas de aplicações de dados pelo Claude Code. Uso memória persistente por projeto, subagentes em paralelo para investigar fontes diferentes ao mesmo tempo e workflows para tarefas longas.</p></div>
+          <div class="row"><strong>Skills e agentes próprios</strong><p>Transformei processos inteiros em skills reutilizáveis. Uma delas cria um projeto de dados do zero: faz as perguntas certas, escreve o adapter da fonte, valida a paridade e publica no servidor.</p></div>
+          <div class="row"><strong>Claude API em produção</strong><p>Assistente em linguagem natural que responde no WhatsApp consultando os dados por uma rota própria, relatórios mensais gerados a partir da DRE e um editor em que o usuário descreve a tela em texto e o assistente a monta.</p></div>
+          <div class="row"><strong>Engenharia de contexto</strong><p>O modelo recebe a mesma fonte de verdade que o painel, com saídas em JSON validadas contra os números. Assim a IA não inventa valor e não contradiz a tela.</p></div>
+        </div>
+        <div>
+          <div class="label">Especialidade</div>
+          <div class="skill-h" id="skills-h">Especialista em criação de skills</div>
+          <p class="skill-lead">Transformo processos de trabalho inteiros em skills de Claude Code: defino quando a skill deve ser acionada, quais perguntas ela faz antes de agir, os scripts que executa, as validações que impedem um resultado errado e o que ela entrega no final.</p>
+          <ul class="skill-pts">
+            <li><b>Gatilho e escopo</b>A descrição certa para o Claude saber quando usar e quando não usar.</li>
+            <li><b>Passo a passo com travas</b>Etapas na ordem, com checagens que param o fluxo se algo não bate.</li>
+            <li><b>Scripts e conectores</b>Node.js, APIs e MCP chamados pela própria skill.</li>
+            <li><b>Memória e contexto</b>A skill lê as notas do projeto antes de agir e registra o que aprendeu.</li>
+          </ul>
+          <p class="note">Também mantenho uma base de memória com mais de 70 notas técnicas (armadilhas de API, regras de negócio, decisões), que o Claude consulta antes de mexer em cada projeto.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="arquitetura">
+      <div class="label">Arquitetura</div>
+      <h2>Como meus pipelines funcionam</h2>
+      <p class="lead">Uso o mesmo esqueleto e adapto a cada fonte de dados. Cada etapa tem uma responsabilidade e, se falhar, eu fico sabendo.</p>
+      <div class="body arch" role="img" aria-label="Diagrama do pipeline: fontes, adapter em Node.js, regras e paridade, container Docker agendado, entrega" tabindex="0">
+        <svg viewBox="0 0 980 232" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+          <g font-family="Inter,system-ui,sans-serif">
+            <g><rect x="2" y="30" width="170" height="160" rx="6" fill="var(--raise)" stroke="var(--line)"/>
+              <text x="18" y="56" font-size="10.5" fill="var(--faint)" font-family="JetBrains Mono,ui-monospace,monospace">fontes</text>
+              <text x="18" y="82" font-size="13" font-weight="600" fill="var(--text)">APIs de ERP</text>
+              <text x="18" y="104" font-size="11" fill="var(--muted)">Omie · Conta Azul · Bling</text>
+              <text x="18" y="120" font-size="11" fill="var(--muted)">Nibo · IXC · Tiny · Sponte</text>
+              <text x="18" y="144" font-size="11" fill="var(--muted)">Marketplaces (ML, Shopee)</text>
+              <text x="18" y="168" font-size="11" fill="var(--muted)">Planilhas · robôs web</text></g>
+            <line x1="174" y1="110" x2="200" y2="110" stroke="var(--muted)" marker-end="url(#ar)"/>
+            <g><rect x="204" y="30" width="180" height="160" rx="6" fill="var(--raise)" stroke="var(--line)"/>
+              <text x="220" y="56" font-size="10.5" fill="var(--faint)" font-family="JetBrains Mono,ui-monospace,monospace">extração</text>
+              <text x="220" y="82" font-size="13" font-weight="600" fill="var(--text)">Adapter em Node.js</text>
+              <text x="220" y="104" font-size="11" fill="var(--muted)">paginação e retries</text>
+              <text x="220" y="120" font-size="11" fill="var(--muted)">limite por chave</text>
+              <text x="220" y="144" font-size="11" fill="var(--muted)">cache incremental</text>
+              <text x="220" y="160" font-size="11" fill="var(--muted)">em volume</text></g>
+            <line x1="386" y1="110" x2="412" y2="110" stroke="var(--muted)" marker-end="url(#ar)"/>
+            <g><rect x="416" y="30" width="180" height="160" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="432" y="56" font-size="10.5" fill="var(--accent-hi)" font-family="JetBrains Mono,ui-monospace,monospace">transformação</text>
+              <text x="432" y="82" font-size="13" font-weight="600" fill="var(--text)">Regras + paridade</text>
+              <text x="432" y="104" font-size="11" fill="var(--muted)">caixa x competência</text>
+              <text x="432" y="120" font-size="11" fill="var(--muted)">baixas parciais</text>
+              <text x="432" y="144" font-size="11" fill="var(--text)">diverge da origem?</text>
+              <text x="432" y="160" font-size="11" fill="var(--text)">não publica</text></g>
+            <line x1="598" y1="110" x2="624" y2="110" stroke="var(--muted)" marker-end="url(#ar)"/>
+            <g><rect x="628" y="30" width="170" height="160" rx="6" fill="var(--raise)" stroke="var(--line)"/>
+              <text x="644" y="56" font-size="10.5" fill="var(--faint)" font-family="JetBrains Mono,ui-monospace,monospace">execução</text>
+              <text x="644" y="82" font-size="13" font-weight="600" fill="var(--text)">Container Docker</text>
+              <text x="644" y="104" font-size="11" fill="var(--muted)">cron interno</text>
+              <text x="644" y="120" font-size="11" fill="var(--muted)">rota /api/refresh</text>
+              <text x="644" y="144" font-size="11" fill="var(--muted)">trava contra</text>
+              <text x="644" y="160" font-size="11" fill="var(--muted)">execução órfã</text></g>
+            <line x1="800" y1="110" x2="826" y2="110" stroke="var(--muted)" marker-end="url(#ar)"/>
+            <g><rect x="830" y="30" width="146" height="160" rx="6" fill="var(--raise)" stroke="var(--line)"/>
+              <text x="846" y="56" font-size="10.5" fill="var(--faint)" font-family="JetBrains Mono,ui-monospace,monospace">entrega</text>
+              <text x="846" y="82" font-size="13" font-weight="600" fill="var(--text)">Painel web</text>
+              <text x="846" y="104" font-size="11" fill="var(--muted)">Power BI</text>
+              <text x="846" y="120" font-size="11" fill="var(--muted)">API para LLM</text>
+              <text x="846" y="144" font-size="11" fill="var(--muted)">relatório PDF</text></g>
+            <text x="2" y="222" font-size="11" fill="var(--muted)">Deploy por git push · segredos só no servidor · histórico preservado quando a API tem janela curta</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body g3">
+        <div class="item"><h3>Por que separar o adapter</h3><p>Cada fonte tem seu jeito de paginar, limitar e apagar registros. Isolo isso num adapter e as regras de negócio ficam iguais para qualquer ERP.</p></div>
+        <div class="item"><h3>Por que a trava de paridade</h3><p>Um painel bonito com número errado é pior que nenhum. Meu script compara o resultado com o relatório do sistema e bloqueia a publicação se divergir.</p></div>
+        <div class="item"><h3>Por que container com cron</h3><p>Agendamento de CI atrasa e tarefa local depende de máquina ligada. Por isso rodo tudo em container, onde o horário é previsível e eu acompanho cada execução.</p></div>
+      </div>
+    </section>
+
+    <section class="sec" id="projetos">
+      <div class="label">Projetos</div>
+      <h2>Problemas que resolvi</h2>
+      <p class="lead">São projetos reais que fiz na BGP, sem nomes de clientes. O foco é o problema técnico e como eu resolvi.</p>
+      <div class="body">
+        <div class="fbar" id="filterbar" hidden><span id="filtertxt"></span><button type="button" id="clear">Limpar filtro</button></div>
+        <div id="cases">
+          <article class="case" data-s="node api cache paridade concil docker coolify js web">
+            <div class="seg">01 · Consolidação · 5 contas</div>
+            <div><h3>API que só aceita uma chamada por vez</h3>
+              <p class="sum">Precisei consolidar cinco empresas no mesmo ERP, sem paralelismo por chave e com paginação que para em silêncio.</p>
+              <div class="stack">Node.js · cache incremental · Docker</div>
+              <details><summary>Ver detalhes</summary><p>Implementei cache incremental em volume, carga completa só aos domingos e conferência pelo total de registros. Todo o cálculo foi para o servidor porque o navegador do celular não aguentava.</p><p class="res">Paridade com o extrato do sistema e saldo conferido banco a banco.</p></details></div>
+          </article>
+          <article class="case" data-s="playwright graph node oauth docker">
+            <div class="seg">02 · Autenticação</div>
+            <div><h3>Login com código enviado por e-mail</h3>
+              <p class="sum">O sistema passou a exigir um código por e-mail a cada acesso, o que quebrava a automação.</p>
+              <div class="stack">Playwright · Microsoft Graph · Node.js</div>
+              <details><summary>Ver detalhes</summary><p>Registrei um app no Azure e o robô lê o código pela Microsoft Graph, completa o login no Playwright e segue sozinho.</p><p class="res">Atualização automática restabelecida sem intervenção humana.</p></details></div>
+          </article>
+          <article class="case" data-s="api node docker coolify linux">
+            <div class="seg">03 · Rede · proxy</div>
+            <div><h3>API acessível só por IP liberado</h3>
+              <p class="sum">Precisei ler uma API que só respondia a IP liberado e não trazia a categoria da despesa.</p>
+              <div class="stack">Proxy · Docker · parsing</div>
+              <details><summary>Ver detalhes</summary><p>Coloquei um proxy num container com IP fixo e adaptei a leitura do razão contábil em partidas dobradas. A categoria da despesa não vinha na API, então passei a extraí-la do histórico de cada título.</p><p class="res">Caixa pela data de crédito e receita por plano.</p></details></div>
+          </article>
+          <article class="case" data-s="powerbi dax pq node excel">
+            <div class="seg">04 · Migração</div>
+            <div><h3>Regras do Power BI levadas para código</h3>
+              <p class="sum">Precisei migrar relatórios .pbix para a web sem perder regra nenhuma.</p>
+              <div class="stack">Power BI · DAX · ADOMD / TOM</div>
+              <details><summary>Ver detalhes</summary><p>Li o modelo direto pelo ADOMD e TOM, extraí as medidas DAX e as reescrevi em JavaScript, conferindo os totais mês a mês com o relatório original.</p><p class="res">Também troquei fontes de .pbix em lote por automação.</p></details></div>
+          </article>
+          <article class="case" data-s="api oauth cache node concil fin">
+            <div class="seg">05 · Marketplaces</div>
+            <div><h3>Margem real por pedido</h3>
+              <p class="sum">Reconstruí a comissão a partir do relatório de liquidação, em que o layout muda por conta.</p>
+              <div class="stack">APIs de marketplace · OAuth · Node.js</div>
+              <details><summary>Ver detalhes</summary><p>Como a API só guarda 12 meses, o histórico passou a ser preservado do meu lado. Também cuidei do OAuth com refresh token rotativo.</p><p class="res">Conciliação de repasse e margem por pedido.</p></details></div>
+          </article>
+          <article class="case" data-s="supabase gha docker coolify sql linux">
+            <div class="seg">06 · Infraestrutura</div>
+            <div><h3>Do servidor local para a nuvem</h3>
+              <p class="sum">Tirei dezenas de tarefas agendadas de um servidor Windows e de um PC e levei para workers em container.</p>
+              <div class="stack">Coolify · Supabase · GitHub Actions</div>
+              <details><summary>Ver detalhes</summary><p>Bancos próprios em Postgres e, nos poucos fluxos que ficaram no GitHub Actions, disparo pelo worker porque o agendamento da CI atrasa.</p><p class="res">Nada mais depende de máquina ligada.</p></details></div>
+          </article>
+          <article class="case" data-s="llm prompt node api fin">
+            <div class="seg">07 · IA aplicada</div>
+            <div><h3>LLM lendo o mesmo dado do painel</h3>
+              <p class="sum">Criei uma rota que entrega ao modelo exatamente as linhas da DRE e os movimentos que o painel mostra.</p>
+              <div class="stack">Claude API · API própria</div>
+              <details><summary>Ver detalhes</summary><p>Assim o assistente em linguagem natural e o relatório mensal nunca contradizem a tela.</p><p class="res">Mesma fonte de verdade para humano e IA.</p></details></div>
+          </article>
+          <article class="case" data-s="llm prompt agents js web">
+            <div class="seg">08 · IA aplicada</div>
+            <div><h3>Telas montadas por linguagem natural</h3>
+              <p class="sum">Fiz um assistente em que o usuário escreve o que quer ver e o modelo gera a configuração da tela em JSON.</p>
+              <div class="stack">Claude API · JSON estruturado · JS</div>
+              <details><summary>Ver detalhes</summary><p>Construí um assistente lateral em que o usuário escreve o que quer ver ("receita por canal nos últimos 6 meses") e o modelo gera a configuração da tela em JSON, validada antes de renderizar.</p><p class="res">Montagem segura: o modelo só configura, não executa código.</p></details></div>
+          </article>
+          <article class="case" data-s="claudecode agents mcp node">
+            <div class="seg">09 · Produtividade</div>
+            <div><h3>Processos inteiros empacotados como skills</h3>
+              <p class="sum">Criar um projeto novo levava dias de trabalho repetido.</p>
+              <div class="stack">Claude Code · skills · MCP</div>
+              <details><summary>Ver detalhes</summary><p>Escrevi skills de Claude Code que conduzem o processo do início ao fim, com perguntas, código, validação e deploy, e uso subagentes e conectores MCP para pesquisar e documentar.</p><p class="res">Projetos novos saindo em horas, com o mesmo padrão.</p></details></div>
+          </article>
+          <article class="case" data-s="whisper node js">
+            <div class="seg">10 · Ferramenta interna</div>
+            <div><h3>Transcrição de áudio 100% offline</h3>
+              <p class="sum">Eu precisava transcrever áudios de reunião sem enviar a terceiros.</p>
+              <div class="stack">Whisper · ONNX · Node.js</div>
+              <details><summary>Ver detalhes</summary><p>Montei um fluxo que decodifica o Opus com o Chromium e roda o Whisper em ONNX localmente, inclusive para vídeo.</p><p class="res">Sem Python, sem nuvem.</p></details></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="trajetoria">
+      <div class="label">Trajetória</div>
+      <h2>De onde eu venho</h2>
+      <div class="body g2">
+        <div class="bio">
+          <p style="margin-top:0">Do técnico em informática à engenharia de dados. Comecei no <b>técnico em Informática da QI</b>, onde tive o primeiro contato com desenvolvimento de software e sistemas web. Hoje curso <b>Ciência da Computação na Universidade La Salle</b>.</p>
+          <p>Desde janeiro de 2025 sou <b>Analista de Dados na Bertuzzi Gestão Patrimonial</b>, em Porto Alegre. Entrei focado em Power BI, Power Query e DAX e fui assumindo a parte de engenharia: integração de APIs, automação, infraestrutura em nuvem, validação de dados e, cada vez mais, desenvolvimento com IA.</p>
+          <p>Em paralelo estudo Linux, computação em nuvem com AWS e Java. Nos 15 anos da BGP recebi o prêmio <b>"Conexão que Move"</b>.</p>
+          <blockquote class="quote">"Quando o número não bate, ele analisa os dados, ajusta plano de contas e regras de reconhecimento, cria validações e só sai quando existe um número oficial na tela."<cite>Bertuzzi Gestão Patrimonial, no destaque do time de BI</cite></blockquote>
+        </div>
+        <div>
+          <div class="job"><span>jan/2025 – atual</span><strong>Bertuzzi Gestão Patrimonial</strong><p>Sou Analista de Dados. Crio dashboards em Power BI, modelo em DAX e Power Query, integro APIs, automatizo processos e cuido da infraestrutura dos pipelines.</p></div>
+          <div class="job"><span>2024 – 2028</span><strong>Universidade La Salle</strong><p>Curso o bacharelado em Ciência da Computação.</p></div>
+          <div class="job"><span>2021 – 2023</span><strong>QI Faculdade &amp; Escola Técnica</strong><p>Fiz o técnico em Tecnologia da Informação, com desenvolvimento de software e sistemas web.</p></div>
+          <div class="job"><span>Certificações</span><p>Networking Foundations · Data Science Basics · Java · Overview of Linux</p></div>
+          <div class="job"><span>Idiomas</span><p>Português nativo · Inglês profissional</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec contact" id="contato">
+      <div class="label">Contato</div>
+      <h2>Vamos conversar</h2>
+      <p class="lead">Estou aberto a trocar ideia sobre dados, engenharia e automação, e a novas oportunidades.</p>
+      <div class="reach">
+        <a href="https://wa.me/5551996408600" target="_blank" rel="noopener"><span>WhatsApp</span><b>(51) 99640-8600</b></a>
+        <a href="mailto:henriqueka2005@gmail.com"><span>E-mail</span><b>henriqueka2005@gmail.com</b></a>
+        <a href="https://www.linkedin.com/in/henriquekovalezyk/" target="_blank" rel="noopener"><span>LinkedIn</span><b>/in/henriquekovalezyk ↗</b></a>
+      </div>
+      <a class="btn" href="https://wa.me/5551996408600" target="_blank" rel="noopener">Conversar no WhatsApp →</a>
+    </section>
+  </main>
+
+  <footer class="foot"><span>Henrique Kovalezyk · Esteio, RS</span><span>Meu portfólio, em HTML, CSS e JavaScript</span></footer>
+</div>
+</div>
+
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu de navegação" hidden>
+  <div class="menu-in">
+    <div class="bar">
+      <button class="bar-btn" id="menuClose" type="button"><span aria-hidden="true">✕</span> Fechar</button>
+      <span class="mark" aria-hidden="true">K<span class="oz">O</span>VALEZYK</span>
+      <span></span>
+    </div>
+    <nav aria-label="Seções">
+      <a href="#top">Início</a>
+      <a href="#numeros">Em números</a>
+      <a href="#metodo">Como eu trabalho</a>
+      <a href="#competencias">O que eu sei fazer</a>
+      <a href="#ia">Como eu uso IA</a>
+      <a href="#arquitetura">Como meus pipelines funcionam</a>
+      <a href="#projetos">Problemas que resolvi</a>
+      <a href="#trajetoria">Trajetória</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- wordmark: ajusta à largura do hero ---------- */
+  var word = document.getElementById('word'), inner = document.getElementById('wordInner');
+  function fitWord(){
+    if(!word || !inner) return;
+    var avail = word.clientWidth;
+    if(!avail) return;
+    inner.style.fontSize = '100px';
+    var w = inner.getBoundingClientRect().width;
+    if(!w){ inner.style.fontSize = ''; return; }
+    var size = Math.floor(100 * avail / w * 0.985 * 10) / 10;
+    inner.style.fontSize = Math.max(20, Math.min(size, 170)) + 'px';
+  }
+  fitWord();
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fitWord); }
+  window.addEventListener('load', fitWord);
+
+  /* ---------- piso de pontos, calmo, só no rodapé do hero ---------- */
+  var hero = document.getElementById('hero'), cv = document.getElementById('field');
+  var ctx = cv && cv.getContext ? cv.getContext('2d') : null;
+  var W = 0, H = 0, raf = 0, visible = true, t0 = 0;
+  var ROWS = 26, COLS = 34, Z0 = 0.9, DZ = 0.24, DX = 0.3;
+
+  function size(){
+    if(!ctx) return;
+    var r = hero.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function draw(t){
+    if(!ctx) return;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#ffffff';
+    var band = Math.min(H * 0.42, 300), horizon = H - band;
+    var f = Math.max(380, Math.min(W * 0.7, 900));
+    var p0 = 1 / Z0;
+    for(var j = ROWS - 1; j >= 0; j--){
+      var z = Z0 + j * DZ, p = 1 / z;
+      var fade = Math.min(1, Math.max(0, (p - 0.14) * 1.2));
+      if(fade <= 0) continue;
+      var r = Math.max(0.7, 1.5 * p);
+      for(var i = -COLS; i <= COLS; i++){
+        var x = i * DX;
+        var sx = W / 2 + x * p * f;
+        if(sx < -4 || sx > W + 4) continue;
+        var y = Math.sin(x * 0.9 + t * 0.22 + z * 0.6) * 0.09 + Math.cos(z * 0.8 - t * 0.16 + x * 0.3) * 0.07;
+        var sy = horizon + (1 - y) * (p / p0) * band * 1.02;
+        if(sy > H + 4) continue;
+        var edge = 1 - Math.min(1, Math.abs(sx - W / 2) / (W * 0.6));
+        ctx.globalAlpha = 0.5 * fade * (0.3 + 0.7 * (y + 0.16) / 0.32) * (0.2 + 0.8 * edge);
+        ctx.fillRect(sx, sy, r, r);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+  function loop(now){
+    if(!t0) t0 = now;
+    draw((now - t0) / 1000);
+    raf = requestAnimationFrame(loop);
+  }
+  function start(){ if(reduce || raf || !visible || document.hidden || !ctx) return; raf = requestAnimationFrame(loop); }
+  function stop(){ if(raf){ cancelAnimationFrame(raf); raf = 0; } }
+
+  if(ctx){
+    size(); draw(0);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        visible = es[0].isIntersecting;
+        if(visible) start(); else stop();
+      }, {threshold: 0}).observe(hero);
+    }
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) stop(); else start(); });
+    start();
+  }
+  var rt = 0;
+  function onResize(){
+    clearTimeout(rt);
+    rt = setTimeout(function(){ fitWord(); size(); if(!raf) draw(0); }, 80);
+  }
+  if('ResizeObserver' in window){ new ResizeObserver(onResize).observe(hero); }
+  else { window.addEventListener('resize', onResize); }
+
+  /* ---------- menu ---------- */
+  var menu = document.getElementById('menu'), mBtn = document.getElementById('menuBtn'), mClose = document.getElementById('menuClose');
+  function openMenu(){
+    menu.hidden = false;
+    mBtn.setAttribute('aria-expanded', 'true');
+    document.documentElement.style.overflow = 'hidden';
+    mClose.focus();
+  }
+  function closeMenu(restore){
+    if(menu.hidden) return;
+    menu.hidden = true;
+    mBtn.setAttribute('aria-expanded', 'false');
+    document.documentElement.style.overflow = '';
+    if(restore) mBtn.focus();
+  }
+  mBtn.addEventListener('click', openMenu);
+  mClose.addEventListener('click', function(){ closeMenu(true); });
+  menu.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a[href]') : null;
+    if(a) closeMenu(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if(menu.hidden) return;
+    if(e.key === 'Escape' || e.key === 'Esc'){ e.preventDefault(); closeMenu(true); return; }
+    if(e.key === 'Tab'){
+      var f = [].slice.call(menu.querySelectorAll('a[href],button'));
+      if(!f.length) return;
+      var first = f[0], last = f[f.length - 1], cur = document.activeElement;
+      if(e.shiftKey && cur === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && cur === last){ e.preventDefault(); first.focus(); }
+      else if(!menu.contains(cur)){ e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* ---------- filtro: chips e barras por área ---------- */
+  var chips = [].slice.call(document.querySelectorAll('.chip'));
+  var cases = [].slice.call(document.querySelectorAll('.case'));
+  var bar = document.getElementById('filterbar'), txt = document.getElementById('filtertxt');
+  var hint = document.getElementById('hint'), go = document.getElementById('goproj');
+  var areaChart = document.getElementById('areaChart'), areaBtns = [];
+
+  function tagsOf(c){ return c.dataset.s.split(' '); }
+  function matches(c, tags){
+    var own = tagsOf(c);
+    for(var i = 0; i < tags.length; i++){ if(own.indexOf(tags[i]) > -1) return true; }
+    return false;
+  }
+  function apply(key, tags, label){
+    chips.forEach(function(c){ c.setAttribute('aria-pressed', String(key === 'chip:' + c.dataset.s)); });
+    areaBtns.forEach(function(b){ b.setAttribute('aria-pressed', String(key === 'area:' + b.dataset.area)); });
+    areaChart.classList.toggle('has-sel', !!key && key.indexOf('area:') === 0);
+    var n = 0;
+    cases.forEach(function(c){
+      var hit = !key || matches(c, tags);
+      c.classList.toggle('dim', !hit);
+      if(hit) n++;
+    });
+    if(key){
+      var q = n + (n === 1 ? ' problema' : ' problemas');
+      bar.hidden = false; go.hidden = n === 0;
+      txt.textContent = 'Filtro: ' + label + ' · ' + q;
+      hint.textContent = n ? label + ' aparece em ' + q + '.' : label + ' não aparece nos problemas listados abaixo.';
+    } else {
+      bar.hidden = true; go.hidden = true;
+      hint.textContent = 'Nenhuma competência selecionada.';
+    }
+  }
+  chips.forEach(function(c){
+    c.setAttribute('aria-pressed', 'false');
+    c.addEventListener('click', function(){
+      var on = c.getAttribute('aria-pressed') === 'true';
+      if(on) apply(null); else apply('chip:' + c.dataset.s, [c.dataset.s], c.textContent);
+    });
+  });
+  document.getElementById('clear').addEventListener('click', function(){ apply(null); });
+
+  /* gráfico 3: calculado ao vivo a partir das tags dos problemas */
+  [].slice.call(document.querySelectorAll('.sk')).forEach(function(sk){
+    var name = sk.dataset.area;
+    var tags = [].slice.call(sk.querySelectorAll('.chip')).map(function(c){ return c.dataset.s; });
+    var count = cases.filter(function(c){ return matches(c, tags); }).length;
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'hb-row'; b.dataset.area = name;
+    b.style.setProperty('--v', count);
+    b.setAttribute('aria-pressed', 'false');
+    b.setAttribute('aria-label', name + ': ' + count + ' de ' + cases.length + ' problemas. Filtrar por esta área.');
+    var n = document.createElement('span'); n.className = 'n'; n.textContent = name;
+    var t = document.createElement('span'); t.className = 't';
+    var i = document.createElement('i');
+    var v = document.createElement('b'); v.textContent = count;
+    t.appendChild(i); t.appendChild(v); b.appendChild(n); b.appendChild(t);
+    b.addEventListener('click', function(){
+      var on = b.getAttribute('aria-pressed') === 'true';
+      if(on) apply(null); else apply('area:' + name, tags, 'Área ' + name);
+    });
+    areaChart.appendChild(b);
+    areaBtns.push(b);
+  });
+  areaChart.style.setProperty('--max', cases.length);
+})();
+</script>
+
+</body>
+</html>
